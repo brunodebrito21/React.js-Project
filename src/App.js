@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+import React,{useEffect, useState} from "react"
+import Select from "./Select"
+import ShowProof from "./ShowProof"
+import ModalEnvio from "./Modalenvio"
 import './App.css';
 
 function App() {
+  const[wasClicked,setWasClicked]=useState(false)
+  const[selectedEspecialty,setSelectedEspecialty]=useState("")
+
+  function handleListProfessionals(especialty){
+    setSelectedEspecialty(especialty)
+}
+  function handleModal(){
+    setWasClicked(!wasClicked)
+  }
+useEffect(()=>{
+},[selectedEspecialty])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Select handleModal={handleModal} handleListProfessionals={handleListProfessionals}/>
+        <ShowProof handleModal={handleModal} especialty={selectedEspecialty}/>
+        {wasClicked?<ModalEnvio handleModal={handleModal}></ModalEnvio>:[]}
     </div>
   );
 }
